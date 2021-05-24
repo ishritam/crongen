@@ -1,6 +1,8 @@
 # Crongen
 
 Crongen is an AI app to generate crontab rules from raw sentences built using OpenAI and Streamlit.
+![crongen](https://user-images.githubusercontent.com/40149802/119294593-75962580-bc72-11eb-980b-6f39f9e52d3c.gif)
+
 
 ## Project structure:
 ------------
