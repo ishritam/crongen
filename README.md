@@ -20,7 +20,7 @@ Crongen is an AI app to generate crontab rules from raw sentences built using Op
 --------
 ## Testing:
 
-  - This can run on Windows / Linux(Ubuntu 20.04) system.
+  - This can run in all Python 3.6 - Python 3.8 environment.
   - It is advised to create a virtual enviornment if you have existing conflicts with python & other libraries/packages installtions.
 
 ## Quickstart:
