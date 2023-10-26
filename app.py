@@ -8,7 +8,7 @@ st.title("Crongen ")
 st.header("**An AI app to generate crontab rules**")
 
 #open-ai api config
-openai.api_key = "OpenAI_API_KEY"
+openai.api_key = "OPENAI_API_KEY"
 def gpt3(prompt, engine='davinci', response_length=0,
          temperature=0, top_p=0, frequency_penalty=0, presence_penalty=0,
          start_text='', restart_text='', stop_seq=[]):
