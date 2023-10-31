@@ -1,14 +1,16 @@
 import openai
 import streamlit as st
 
-#page config
+# Page config
 st.set_page_config(page_title="Crongen - Shritam")
 
-st.title("Crongen ")
+st.title("Crongen")
 st.header("**An AI app to generate crontab rules**")
 
-#open-ai api config
-openai.api_key = "OPENAI_API_KEY"
+# OpenAI API key (store it securely, e.g., as an environment variable)
+openai.api_key = "YOUR_OPENAI_API_KEY"
+
+# Define GPT-3 function
 def gpt3(prompt, engine='davinci', response_length=0,
          temperature=0, top_p=0, frequency_penalty=0, presence_penalty=0,
          start_text='', restart_text='', stop_seq=[]):
@@ -25,6 +27,7 @@ def gpt3(prompt, engine='davinci', response_length=0,
     answer = response.choices[0]['text']
     new_prompt = prompt + start_text + answer + restart_text
     return answer, new_prompt
+
 
 prompt="""English: each day
 GPT: 0 0 * * *
@@ -120,30 +123,29 @@ English: on every Sunday at 9:30 PM
 GPT: 0 21 * * 0
 English: """
 
-
-# streamlit form
+# Streamlit form
 try:
     form_1 = st.form(key='my-form1')
     command = form_1.text_input("Enter Command:")
     submit = form_1.form_submit_button('Submit')
 
     if submit:
-        st.header("**Result**")
-        # inp_word = "At 6:30 PM"
-        prompt += command  #insert the input textarea's text
-        answer, prompt = gpt3(prompt,response_length=64,
-                                temperature=0.58,
-                                start_text = '\nGPT:',
-                                restart_text = '\n\nEnglish:',
-                                stop_seq=['\n\nEnglish:','\n'])
-        st.header(f"**{answer}**")
+        st.info("Generating crontab rule...")  # Feedback to the user
+        prompt += command  # Insert the input textarea's text
+        answer, prompt = gpt3(prompt, response_length=64,
+                              temperature=0.58,
+                              start_text='\nGPT:',
+                              restart_text='\n\nEnglish:',
+                              stop_seq=['\n\nEnglish:', '\n'])
+        st.header(f"**Result:**")
+        st.write(f"**{answer}**")
+        command = ""  # Clear input after submission
 except Exception as e:
-    st.success(f'Something Went Wrong!😁 {e}')
+    st.error(f'Something Went Wrong! 😁 {e}')
 
-
-
-#footer
-footer="""<style>
+# Footer
+footer = """
+<style>
 a:link , a:visited{
 color: blue;
 background-color: transparent;
@@ -170,15 +172,13 @@ text-align: center;
 <p>Developed with ❤ </p>
 </div>
 """
-st.markdown(footer,unsafe_allow_html=True)
+st.markdown(footer, unsafe_allow_html=True)
 
-
-
-#remove hamburger 
+# Remove Streamlit hamburger menu
 hide_streamlit_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
